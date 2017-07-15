@@ -10,8 +10,8 @@ public class HelloWorldController
 	@RequestMapping("/hello_world")
 	private String Index()
 	{
-		int[] a={1,2};
-		a[5]++;
+//		int[] a={1,2};
+//		a[5]++;
 		return "hello_world";
 	}
 	
