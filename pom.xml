@@ -220,13 +220,6 @@
 		</dependency>
 		<!-- 工具包end -->
 
-		<!-- solr -->
-		<dependency>
-			<groupId>org.apache.solr</groupId>
-			<artifactId>solr-solrj</artifactId>
-			<version>6.6.0</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
