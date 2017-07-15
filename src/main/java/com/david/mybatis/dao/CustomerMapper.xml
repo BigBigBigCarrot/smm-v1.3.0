@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.david.mybatis.dao.CustomerDao">
+	<select id="get" parameterType="Integer" resultType="com.david.mybatis.entity.Customer">
+		select	c.id as `id`,
+				c.first_name as `firstName`,
+				c.last_name as `lastName`,
+				c.dob as `dob`,
+				c.phone as `phone`
+	 	from customers c where id = #{id}
+    </select>
+    
+    <select id="countCustomer" resultType="int">
+		select count(1)
+	 	from customers
+    </select>
+    
+	<select id="findByCondition" resultType="Map">
+		select c.id as `id`,
+				c.first_name as `firstName`,
+				c.last_name as `lastName`,
+				c.dob as `dob`,
+				c.phone as `phone`
+		  from customers c
+		 where 1=1
+		<if test="id != null">
+		   and c.id = #{id}
+		</if>
+		<if test="firstName != null">
+		   and c.firstName = #{firstName}
+		</if>
+		<if test="lastName != null">
+		   and c.lastName = #{lastName}
+		</if>
+		<if test="dob != null">
+		   and c.dob = #{dob}
+		</if>
+		<if test="phone != null">
+		   and c.phone = #{phone}
+		</if>
+	</select>
+    
+</mapper>

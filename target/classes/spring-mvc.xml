@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+<!-- 配置扫描controller包 -->
+<context:component-scan base-package="com.david.controller" />
+<context:component-scan base-package="com.david.controller.*" />
+
+
+<!-- 文件上传的配置 -->
+<bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+	p:defaultEncoding="UTF-8" p:maxUploadSize="52428800" p:uploadTempDir="upload/temp">
+</bean>
+
+	<!-- 配置返回类型 -->
+	<!--
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/plain;charset=UTF-8</value>
+						<value>text/html;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	-->
+	
+	<!-- 默认的注解映射的支持包含返回的json数据解析器 -->
+	<mvc:annotation-driven conversion-service="conversionService">
+		<mvc:message-converters register-defaults="false">
+			<!-- 将StringHttpMessageCOnverter的默认编码设为UTF-8 -->
+			<bean
+				class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+			</bean>
+			<!-- json 响应的 content-type 是 application/json，而 IE 10 以前的浏览器对于这个类型是作为文件下载的 -->
+			<!-- 解决方法是只要将返回响应的 content-type 改为text/plain 即可 -->
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/plain;charset=UTF-8</value>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+				<property name="objectMapper" ref="jacksonObjectMapper"/>  
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<bean id="jacksonObjectMapper" class="com.david.security.anti.xss.XssJacksonObjectMapper">
+		<property name="dateFormat">
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+			</bean>
+		</property>
+	</bean>
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="jacksonObjectMapper" />
+		<property name="targetMethod" value="configure" />
+		<property name="arguments">
+			<list>
+				<value type="com.fasterxml.jackson.databind.DeserializationFeature">FAIL_ON_UNKNOWN_PROPERTIES</value>
+				<value>false</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="conversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.david.util.date.StringToDateConvertor"></bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 视图名称的解析 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/views/" p:suffix=".jsp">
+	</bean>
+	
+	<!-- 配置静态资源 -->
+	<mvc:resources mapping="/static/js/**" location="/WEB-INF/static/js/"/>  
+    <mvc:resources mapping="/static/css/**" location="/WEB-INF/static/css/"/>  
+    <mvc:default-servlet-handler />  
+    
+    <!-- 自定义拦截器 -->
+	<mvc:interceptors>
+		<!-- 登录身份认证 -->
+		<mvc:interceptor>
+			 <mvc:mapping path="/LoginController/loginSuccessPage" />
+				<!-- 设置不拦截的url -->
+				<!--  
+				<mvc:exclude-mapping path="/view/**" />
+				<mvc:exclude-mapping path="/captcha/**" />
+				<mvc:exclude-mapping path="/index.html" />
+				<mvc:exclude-mapping path="/themes/**" />
+				<mvc:exclude-mapping path="/My97DatePicker/**" />
+				<mvc:exclude-mapping path="/common/**" />
+				<mvc:exclude-mapping path="/uploadfy/**" />				
+				<mvc:exclude-mapping path="/upload/**" />
+				<mvc:exclude-mapping path="/favicon.ico"/>
+				<mvc:exclude-mapping path="/404.jsp"/>
+				<mvc:exclude-mapping path="/400.jsp"/>
+				<mvc:exclude-mapping path="/500.jsp"/>
+				-->
+			<bean class="com.david.interceptor.UserInterceptor">
+				<!-- 配置多个拦截器 -->
+			</bean>
+		</mvc:interceptor>
+	
+	</mvc:interceptors> 
+	
+</beans>
+

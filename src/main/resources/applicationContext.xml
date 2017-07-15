@@ -1,0 +1,45 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop  
+        http://www.springframework.org/schema/aop/spring-aop.xsd  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/mvc  
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+        http://www.springframework.org/schema/tx  
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 统一在这里引入所有.properties配置文件，也可在每个xml配置文件下单独引用所需的properties文件 -->
+	<context:property-placeholder
+		ignore-resource-not-found="true" location="classpath*:/*.properties"
+		file-encoding="UTF-8" />
+
+	
+	<!-- 如果web.xml中只引入applicationContext.xml，需在此处import其他xml文件 -->
+	<import resource="classpath*:/spring-service.xml" />
+	<import resource="classpath*:/spring-mybatis.xml" />
+	<!-- 
+	<import resource="classpath*:/spring-jedis.xml" /> 不使用redis时注释掉，否则spring启动时得不到redis连接，会报错 
+	-->
+	
+
+
+	<!-- 启用注解 -->
+	<context:annotation-config />
+
+	<!-- 启动组件扫描，扫描util包 (可在此处扫描所有的包，或在各个import的xml配置文件中分别扫描各自所需的包) -->
+	<context:component-scan base-package="com.david.util">
+	</context:component-scan>
+
+	<!--  
+	<bean id="myPassWordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+		<constructor-arg index="0" value="${key}"></constructor-arg>
+	</bean>
+	-->
+
+</beans>
