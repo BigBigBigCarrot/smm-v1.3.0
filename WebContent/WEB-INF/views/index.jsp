@@ -17,6 +17,7 @@ label {
 	</p>
 	<p>
 		<a href="/TestController/test_page">临时测试页面</a>
+		<a href="/TestController/ajaxClosureTestPage">ajax回调，javaScript闭包测试</a>
 	</p>
 	<p>
 		<a href="/CustomerController/customerList">customer</a>
