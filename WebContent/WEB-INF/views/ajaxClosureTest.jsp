@@ -10,9 +10,13 @@
 <script src="/static/js/views/ajaxClosureTest.js"></script>
 </head>
 <body ng-controller="customerController">
-ajaxParameter:<input type="text" ng-model="ajaxParameter"/>
+<!--  
+ajaxParameter:<input type="number" ng-model="ajaxParameter"/>
 <br/>
 <input type="button" value="sendAjaxRequest" ng-click="sendAjaxRequest(ajaxParameter)"/>
+-->
+<input type="button" value="sendAjaxRequest(1)" ng-click="sendAjaxRequest(1)"/>
+<input type="button" value="sendAjaxRequest(2)" ng-click="sendAjaxRequest(2)"/>
 </body>
 
 </html>
