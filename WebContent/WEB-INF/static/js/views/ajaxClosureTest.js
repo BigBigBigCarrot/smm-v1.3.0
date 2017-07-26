@@ -26,9 +26,9 @@ app.controller("customerController",function($scope){
 				"ajaxParameter":ajaxParameter
 			}
 		}).success(function(result){
-			if(ajaxParameter!=result){
-				console.log("发送时的参数："+ajaxParameter+" 回传的参数:"+result);
-			}
+			console.log("发送时的参数："+ajaxParameter+" 回传的参数:"+result);
+//			if(ajaxParameter!=result){
+//			}
 		});
 	}
 });
