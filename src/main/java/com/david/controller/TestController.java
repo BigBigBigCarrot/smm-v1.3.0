@@ -56,15 +56,20 @@ public class TestController {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "ajaxParameter", required = false) String ajaxParameter) {
-		System.out.println(DateUtil.getSystemDate()+"--进入controller方法");
-		Long delaySecond = 1000*30L;
-		Timer timer = new Timer();// 实例化Timer类
-		timer.schedule(new TimerTask() {
-			public void run() {
-				System.out.println(DateUtil.getSystemDate()+"--timer run");
-				this.cancel();
-			}
-		}, delaySecond);
+//		System.out.println(DateUtil.getSystemDate()+"--进入controller方法");
+//		Long delaySecond = 1000*30L;
+//		Timer timer = new Timer();// 实例化Timer类
+//		timer.schedule(new TimerTask() {
+//			public void run() {
+//				System.out.println(DateUtil.getSystemDate()+"--timer run");
+//				this.cancel();
+//			}
+//		}, delaySecond);
+		int a=0;
+		for(long i=0;i<1000000000;i++){
+//			System.out.println(DateUtil.getSystemDate()+"i="+i);
+			a++;
+		}
 
 		return ajaxParameter;
 	}

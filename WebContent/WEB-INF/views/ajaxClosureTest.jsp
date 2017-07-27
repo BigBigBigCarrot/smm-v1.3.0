@@ -10,6 +10,10 @@
 <script src="/static/js/views/ajaxClosureTest.js"></script>
 </head>
 <body ng-controller="customerController">
+<h3>
+发送两次ajax请求，次序为r1(参数p1)、r2(参数p2)，其中r2回调success方法先于r1执行，<br/>
+r1与r2在回调中各自调用的参数p1、p2并未混乱
+</h3>
 <!--  
 ajaxParameter:<input type="number" ng-model="ajaxParameter"/>
 <br/>
