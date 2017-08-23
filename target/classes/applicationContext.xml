@@ -22,6 +22,7 @@
 	<!-- 如果web.xml中只引入applicationContext.xml，需在此处import其他xml文件 -->
 	<import resource="classpath*:/spring-service.xml" />
 	<import resource="classpath*:/spring-mybatis.xml" />
+	<import resource="classpath*:/spring-task.xml" />
 	<!-- 
 	<import resource="classpath*:/spring-jedis.xml" /> 不使用redis时注释掉，否则spring启动时得不到redis连接，会报错 
 	-->
