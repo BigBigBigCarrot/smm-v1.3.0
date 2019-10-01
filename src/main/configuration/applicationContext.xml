@@ -27,8 +27,6 @@
 	<import resource="classpath*:/spring-jedis.xml" /> 不使用redis时注释掉，否则spring启动时得不到redis连接，会报错 
 	-->
 	
-
-
 	<!-- 启用注解 -->
 	<context:annotation-config />
 
