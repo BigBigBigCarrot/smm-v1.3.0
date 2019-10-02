@@ -31,8 +31,8 @@
 	<context:annotation-config />
 
 	<!-- 启动组件扫描，扫描util包 (可在此处扫描所有的包，或在各个import的xml配置文件中分别扫描各自所需的包) -->
-	<context:component-scan base-package="com.david.util">
-	</context:component-scan>
+	<context:component-scan base-package="com.david.util"></context:component-scan>
+	<context:component-scan base-package="com.david.util.*"></context:component-scan>
 
 	<!--  
 	<bean id="myPassWordEncoder"

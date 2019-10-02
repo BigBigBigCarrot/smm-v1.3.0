@@ -95,8 +95,9 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	</bean>
 	
 	<!-- 配置静态资源 -->
-	<mvc:resources mapping="/static/js/**" location="/WEB-INF/static/js/"/>  
-    <mvc:resources mapping="/static/css/**" location="/WEB-INF/static/css/"/>  
+	<!-- <mvc:resources mapping="/static/js/**" location="/WEB-INF/static/js/"/>  
+    <mvc:resources mapping="/static/css/**" location="/WEB-INF/static/css/"/>   -->
+    <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/> 
     <mvc:default-servlet-handler />  
     
     <!-- 自定义拦截器 -->
